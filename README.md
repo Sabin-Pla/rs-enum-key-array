@@ -17,7 +17,9 @@ This demo, as well as any project using this crate must built with `cargo +night
 Projects using this crate also need to enable
 `#![feature(generic_const_exprs)]`
 
-How to use:
+## How to use:
+
+First, define the enum you want to use as your array key.
 
 ``` main.rs
 #[derive(Debug, Idable)]
