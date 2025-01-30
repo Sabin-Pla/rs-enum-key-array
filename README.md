@@ -1,5 +1,10 @@
 This crate provides a datastructure for an array-backed O(1) mapping between an enum and data.
 
+```
+[dependencies]
+id_map = { git = "https://github.com/Sabin-Pla/rs-idmap" }
+```
+
 Currently relies on incomplete features:
 ```
 #![feature(generic_const_exprs)]
@@ -7,7 +12,10 @@ Currently relies on incomplete features:
 #![allow(incomplete_features)]
 ```
 
-Must be ran with `cargo +nightly run`
+This demo, as well as any project using this crate must built with `cargo +nightly`. 
+
+Projects using this crate also need to enable
+`#![feature(generic_const_exprs)]`
 
 How to use:
 
