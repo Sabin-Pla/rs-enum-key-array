@@ -3,9 +3,9 @@
 #![allow(incomplete_features)]
 
 mod idable;
-mod id_map;
+mod eka;
 
 pub use idable::*;
-pub use id_map::*;
-pub use id_map_derive::Idable;
+pub use eka::*;
+pub use eka_derive::Idable;
 

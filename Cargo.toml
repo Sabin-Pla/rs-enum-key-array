@@ -13,4 +13,4 @@ keywords = ["datastructure"]
 [lib]
 
 [dependencies]
-eka_derive = { path = "./eka_derive"}
+eka_derive = "0.1.0"

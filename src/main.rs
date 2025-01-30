@@ -3,11 +3,11 @@
 #![allow(incomplete_features)]
 
 mod idable;
-mod id_map;
+mod eka;
 
 pub use idable::*;
-pub use id_map::*;
-pub use id_map_derive::Idable;
+pub use eka::*;
+pub use eka_derive::Idable;
 
 
 #[derive(Debug, Default, Clone, Copy)]
@@ -27,7 +27,7 @@ enum ExampleKey {
 fn main() {
         
     // Create an IdMap with randomly assigned data (unsafe)
-    let mut id_map  = IdMap::<ExampleKey, S>::new();
+    let mut id_map  = EKA::<ExampleKey, S>::new();
 
     id_map[ExampleKey::A] = S { a: 4 };
     id_map[ExampleKey::B] = S { a: 6 };
