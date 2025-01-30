@@ -2,6 +2,12 @@
 name = "eka_derive"
 version = "0.1.0"
 edition = "2021"
+authors = ["Sabin Plaiasu"]
+description = "Macros for Enum Key Array (EKA) crate"
+readme = "README.md"
+repository = "https://github.com/Sabin-Pla/rs-enum-key-array/tree/main/eka_derive"
+homepage = "https://github.com/Sabin-Pla/rs-enum-key-array/tree/main/eka_derive"
+license = "MIT OR Apache-2.0"
 
 [lib]
 proc-macro = true
