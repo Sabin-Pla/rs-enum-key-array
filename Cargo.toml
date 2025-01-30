@@ -1,11 +1,10 @@
 [package]
-name = "IdMap"
+name = "id_map"
 version = "0.1.0"
 edition = "2021"
 
 [lib]
 proc-macro = true
-
 
 [dependencies]
 id_map_derive = { path = "./id_map_derive"}
