@@ -1,4 +1,3 @@
-#![feature(generic_const_items)]
 #![feature(generic_const_exprs)]
 #![feature(maybe_uninit_array_assume_init)]
 #![allow(incomplete_features)]
@@ -8,6 +7,7 @@ mod id_map;
 
 pub use idable::*;
 pub use id_map::*;
+pub use id_map_derive::Idable;
 
 
 #[derive(Debug, Default, Clone, Copy)]
@@ -15,29 +15,28 @@ struct S {
     a: u8
 }
 
-
-#[derive(Debug)]
-enum Test {
+#[derive(Debug, Idable)]
+enum ExampleKey {
     A,
-    B
+    B,
+    C,
+    D,
+    E
 }
-
-impl Idable for Test {
-    const MAX: usize = 2;
-    fn idx(&self) -> usize {
-        match self {
-            Self::A => 0,
-            Self::B => 1
-        }
-    }
-}
-
-
 
 fn main() {
-    let mut id_map  = IdMap::<Test, S>::new();
-    id_map[Test::A] = S { a: 4 };
-    id_map[Test::B] = S { a: 6 };
+        
+    // Create an IdMap with randomly assigned data (unsafe)
+    let mut id_map  = IdMap::<ExampleKey, S>::new();
+
+    id_map[ExampleKey::A] = S { a: 4 };
+    id_map[ExampleKey::B] = S { a: 6 };
+
+    // provides blanket IndexMut[ExampleKey]
+    // IdMap { buf: [S { a: 4 }, S { a: 6 }, S { a: <undefined> }, S { a: <undefined> }, S { a: <undefined> }] }
     println!("{:?}", id_map);
-    println!("{:?}",     id_map[Test::B]);
+
+    // provides blanket Index[ExampleKey]
+    // IdMap S { a: 6 }
+    println!("{:?}", id_map[ExampleKey::B]);
 }
