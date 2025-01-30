@@ -2,7 +2,7 @@ This crate provides a datastructure for an array-backed O(1) mapping between enu
 
 ```
 [dependencies]
-id_map = { git = "https://github.com/Sabin-Pla/rs-idmap" }
+eka = "0.1.0"
 ```
 
 Currently relies on incomplete features:
@@ -30,14 +30,14 @@ enum ExampleKey {
 }
 ``` 
 
-Next defined an id map, which will allow us to associate each of the 5 variants of ExampleKey with an index in the structure below. See idable.rs if each variant does not necessarily map to each element, and a different implementation is required.
+Next, define the enum key array, which will allow us to associate each of the 5 variants of ExampleKey with an index in the structure below. See idable.rs if each variant does not necessarily map to each element, and a different implementation is required.
 ```
-// Create an IdMap with randomly assigned data (unsafe)
-let mut id_map  = IdMap::<ExampleKey, S>::new();
+// Create an EKA with randomly assigned data (unsafe)
+let mut eka = EKA::<ExampleKey, S>::new();
 ```
 
-Id map can be indexed by keys.
+EKA can be indexed by keys.
 ```
-id_map[ExampleKey::A] = S { a: 4 };
-let val = id_map[ExampleKey::B];
+eka[ExampleKey::A] = S { a: 4 };
+let val = eka[ExampleKey::B];
 ```

@@ -26,17 +26,17 @@ enum ExampleKey {
 
 fn main() {
         
-    // Create an IdMap with randomly assigned data (unsafe)
-    let mut id_map  = EKA::<ExampleKey, S>::new();
+    // Create an enum key array with randomly assigned data (unsafe)
+    let mut eka = EKA::<ExampleKey, S>::new();
 
-    id_map[ExampleKey::A] = S { a: 4 };
-    id_map[ExampleKey::B] = S { a: 6 };
+    eka[ExampleKey::A] = S { a: 4 };
+    eka[ExampleKey::B] = S { a: 6 };
 
     // provides blanket IndexMut[ExampleKey]
-    // IdMap { buf: [S { a: 4 }, S { a: 6 }, S { a: <undefined> }, S { a: <undefined> }, S { a: <undefined> }] }
-    println!("{:?}", id_map);
+    // EKA { buf: [S { a: 4 }, S { a: 6 }, S { a: <undefined> }, S { a: <undefined> }, S { a: <undefined> }] }
+    println!("{:?}", eka);
 
     // provides blanket Index[ExampleKey]
-    // IdMap S { a: 6 }
-    println!("{:?}", id_map[ExampleKey::B]);
+    // EKA S { a: 6 }
+    println!("{:?}", eka[ExampleKey::B]);
 }
