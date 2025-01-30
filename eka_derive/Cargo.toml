@@ -1,5 +1,5 @@
 [package]
-name = "id_map_derive"
+name = "eka_derive"
 version = "0.1.0"
 edition = "2021"
 

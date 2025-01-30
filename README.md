@@ -1,4 +1,4 @@
-This crate provides a datastructure for an array-backed O(1) mapping between an enum and data.
+This crate provides a datastructure for an array-backed O(1) mapping between enum variants and array indexes.
 
 ```
 [dependencies]

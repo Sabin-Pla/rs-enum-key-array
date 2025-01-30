@@ -1,9 +1,16 @@
 [package]
-name = "id_map"
+name = "eka"
 version = "0.1.0"
 edition = "2021"
+authors = ["Sabin Plaiasu"]
+description = "A datastructure for an array-backed O(1) mapping between enum variants and array indexes."
+readme = "README.md"
+repository = "https://github.com/Sabin-Pla/rs-enum-key-array"
+homepage = "https://github.com/Sabin-Pla/rs-enum-key-array"
+license = "MIT OR Apache-2.0"
+keywords = ["datastructure"]
 
 [lib]
 
 [dependencies]
-id_map_derive = { path = "./id_map_derive"}
+eka_derive = { path = "./eka_derive"}
