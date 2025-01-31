@@ -17,11 +17,11 @@ struct S {
 
 #[derive(Debug, Idable)]
 enum ExampleKey {
-    A,
-    B,
-    C,
+    A{ a: usize },
+    B(usize, bool),
     D,
-    E
+    E,
+    C,
 }
 
 fn main() {
@@ -41,8 +41,8 @@ fn main() {
         assert!(eka_default[i].a == 0);
     }
 
-    eka_random_init[ExampleKey::A] = S { a: 4 };
-    eka_random_init[ExampleKey::B] = S { a: 6 };
+    eka_random_init[ExampleKey::A{ a: 0 }] = S { a: 4 };
+    eka_random_init[ExampleKey::B(0, true)] = S { a: 6 };
 
     // provides IndexMut[ExampleKey]
     // EKA { buf: [S { a: 4 }, S { a: 6 }, S { a: <undefined> }, S { a: <undefined> }, S { a: <undefined> }] }
@@ -50,5 +50,5 @@ fn main() {
 
     // provides Index[ExampleKey]
     // EKA S { a: 6 }
-    println!("{:?}", eka_random_init[ExampleKey::B]);
+    println!("{:?}", eka_random_init[ExampleKey::C]);
 }
