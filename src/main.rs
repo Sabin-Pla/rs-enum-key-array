@@ -31,9 +31,14 @@ fn main() {
     
     // Create an EKA with all zero-byte data 
     // unsafe because S not being zeroable might induce UB
-    let mut eka  = unsafe { EKA::<ExampleKey, S>::zeroed() };
+    let mut eka_zeroed  = unsafe { EKA::<ExampleKey, S>::zeroed() };
+
+    // if S implements Default + Copy, we can create the datastructure safely
+    let mut eka_default  = EKA::<ExampleKey, S>::new();
+
     for i in 0..5 {
-        assert!(eka[i].a == 0)
+        assert!(eka_zeroed[i].a == 0);
+        assert!(eka_default[i].a == 0);
     }
 
     eka_random_init[ExampleKey::A] = S { a: 4 };

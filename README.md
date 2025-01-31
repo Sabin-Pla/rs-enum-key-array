@@ -2,7 +2,7 @@ This crate provides a datastructure for an array-backed O(1) mapping between enu
 
 ```
 [dependencies]
-eka = "0.1.2"
+eka = "0.1.3"
 ```
 
 Currently relies on incomplete features:
@@ -34,12 +34,15 @@ enum ExampleKey {
 
 Next, define the enum key array, which will allow us to associate each of the 5 variants of ExampleKey with an index in the structure below. See idable.rs if each variant does not necessarily map to each element, and a different implementation is required.
 ```main.rs
+// if S implements Default + Copy, we can create the datastructure safely
+let mut eka_default  = EKA::<ExampleKey, S>::new();
+
 // Create an EKA with randomly assigned data (unsafe)
 let mut eka_random_init  = unsafe { EKA::<ExampleKey, S>::uninitialized() };
 
 // Create an EKA with all zero-byte data 
 // unsafe because S not being zeroable might induce UB
-let mut eka  = unsafe { EKA::<ExampleKey, S>::zeroed() };
+let mut eka_zeroed  = unsafe { EKA::<ExampleKey, S>::zeroed() };
 ```
 
 EKA can be indexed by keys.
@@ -47,3 +50,4 @@ EKA can be indexed by keys.
 eka[ExampleKey::A] = <expression>;
 let val = eka[ExampleKey::B];
 ```
+

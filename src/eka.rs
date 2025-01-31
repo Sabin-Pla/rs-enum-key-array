@@ -27,6 +27,15 @@ impl<I: Idable, O: Sized > EKA<I, O> where [(); I::MAX]: {
     }
 }
 
+impl<I: Idable, O: Sized + Copy + Default > EKA<I, O> where [(); I::MAX]: {
+    pub fn new() -> Self {
+        Self {
+            buf:  [O::default();  I::MAX]
+        }
+    }
+}
+
+
 impl <I: Idable, O: Sized >  
 Index<I> for EKA<I, O> where [(); I::MAX]: {
     type Output = O;
