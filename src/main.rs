@@ -25,18 +25,25 @@ enum ExampleKey {
 }
 
 fn main() {
-        
-    // Create an enum key array with randomly assigned data (unsafe)
-    let mut eka = EKA::<ExampleKey, S>::new();
 
-    eka[ExampleKey::A] = S { a: 4 };
-    eka[ExampleKey::B] = S { a: 6 };
+    // Create an EKA with randomly assigned data (unsafe)
+    let mut eka_random_init  = unsafe { EKA::<ExampleKey, S>::uninitialized() };
+    
+    // Create an EKA with all zero-byte data 
+    // unsafe because S not being zeroable might induce UB
+    let mut eka  = unsafe { EKA::<ExampleKey, S>::zeroed() };
+    for i in 0..5 {
+        assert!(eka[i].a == 0)
+    }
 
-    // provides blanket IndexMut[ExampleKey]
+    eka_random_init[ExampleKey::A] = S { a: 4 };
+    eka_random_init[ExampleKey::B] = S { a: 6 };
+
+    // provides IndexMut[ExampleKey]
     // EKA { buf: [S { a: 4 }, S { a: 6 }, S { a: <undefined> }, S { a: <undefined> }, S { a: <undefined> }] }
-    println!("{:?}", eka);
+    println!("{:?}", eka_random_init);
 
-    // provides blanket Index[ExampleKey]
+    // provides Index[ExampleKey]
     // EKA S { a: 6 }
-    println!("{:?}", eka[ExampleKey::B]);
+    println!("{:?}", eka_random_init[ExampleKey::B]);
 }
