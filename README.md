@@ -2,7 +2,7 @@ This crate provides a datastructure for an array-backed O(1) mapping between enu
 
 ```
 [dependencies]
-eka = "0.1.4"
+eka = "0.1.5"
 ```
 
 Currently relies on incomplete features:
