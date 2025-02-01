@@ -1,4 +1,4 @@
-[package]
+ [package]
 name = "eka"
 version = "0.1.4"
 edition = "2021"
@@ -13,4 +13,4 @@ keywords = ["datastructure"]
 [lib]
 
 [dependencies]
-eka_derive = "0.1.1"
+eka_derive = "0.1.2"

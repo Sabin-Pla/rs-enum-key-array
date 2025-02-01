@@ -54,15 +54,14 @@ fn impl_idable(ast: &syn::DeriveInput) -> TokenStream {
             const MAX: usize = #variant_count;
             fn idx(&self) -> usize {
                 match self {
-                    #(Self::#variant_names => #indexes),* 
-                    ,
-                    #(Self::#variant_names_field(..) => #indexes_field),* 
-                    ,
-                    #(Self::#variant_names_named_field{..} => #indexes_named_field,),* 
+                    #(Self::#variant_names => #indexes,)* 
+                    #(Self::#variant_names_field(..) => #indexes_field,)* 
+                    #(Self::#variant_names_named_field{..} => #indexes_named_field,)* 
 
                 }
             }
         }
     };
+    print!("{}", gen);
     gen.into()
 }
