@@ -15,9 +15,10 @@ struct S {
     a: u8
 }
 
+type Test=bool;
 #[derive(Debug, Idable)]
 enum ExampleKey {
-    A{field1: usize, field2: bool},
+    A{field1: usize, field2: Test},
     B(usize),
     D,
     E,
