@@ -1,13 +1,28 @@
+#![allow(dead_code)]
+#![allow(unused_imports, unused_mut, unused_variables)]
+
 use proc_macro::TokenStream;
 use quote::quote;
 use quote::ToTokens;
 use quote::{format_ident};
+
+mod range_enum;
+use range_enum::*;
+use syn::{parse_macro_input, Data, DeriveInput, Variant};
 
 trait Idable {
     const MAX: usize = 0;
     fn idx(&self) -> usize;
 }
 
+
+#[proc_macro_derive(RangeEnum, attributes(variant_range))]
+pub fn derive_range_enum(input: TokenStream) -> TokenStream {
+    //let mut ast = syn::parse(input).unwrap();
+    let mut ast: DeriveInput = parse_macro_input!(input);
+    // Build the trait implementation
+    impl_range_enum(ast)
+}
 
 
 #[proc_macro_derive(Idable)]
@@ -41,16 +56,10 @@ fn impl_idable(ast: &syn::DeriveInput) -> TokenStream {
                 for p in f.named.clone().into_pairs() {
                     let f: syn::Field = p.value().clone();
                     if matches!(f.ty, syn::Type::Verbatim(_)) {
-                            println!("{}", f.ty.to_token_stream());
+                        println!("{}", f.ty.to_token_stream());
                     } if let syn::Type::Path(p) = f.ty {
-
-                            println!("{:?}", p.path.get_ident().unwrap());
+                        println!("{:?}", p.path.get_ident().unwrap());
                     } 
-                    //println!("{}", f.ty.to_token_stream());
-
-                    //if has_bound(f.ty(), proc_macro::Ident::new()) {
-
-                    //} 
                 }
                 variant_names_named_field.push(variant.ident.clone())
             },
@@ -74,8 +83,9 @@ fn impl_idable(ast: &syn::DeriveInput) -> TokenStream {
         indexes_named_field.push(i);
     }
 
-
+    let arm =  format_match_arm(syn::Ident::new("vafgg", proc_macro2::Span::call_site()));
     let gen = quote! {
+
         impl Idable for #name {
             const MAX: usize = #variant_count;
             fn idx(&self) -> usize {

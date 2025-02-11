@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+#![allow(unused_variables)]
 #![feature(generic_const_exprs)]
 #![feature(maybe_uninit_array_assume_init)]
 #![allow(incomplete_features)]
@@ -32,10 +34,10 @@ fn main() {
     
     // Create an EKA with all zero-byte data 
     // unsafe because S not being zeroable might induce UB
-    let mut eka_zeroed  = unsafe { EKA::<ExampleKey, S>::zeroed() };
+    let eka_zeroed  = unsafe { EKA::<ExampleKey, S>::zeroed() };
 
     // if S implements Default + Copy, we can create the datastructure safely
-    let mut eka_default  = EKA::<ExampleKey, S>::new();
+    let eka_default  = EKA::<ExampleKey, S>::new();
 
     for i in 0..5 {
         assert!(eka_zeroed[i].a == 0);
