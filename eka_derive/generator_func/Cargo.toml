@@ -1,0 +1,14 @@
+[package]
+name = "generator-func"
+version = "0.1.0"
+edition = "2021"
+authors = ["Sabin Plaiasu"]
+license = "MIT OR Apache-2.0"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn = { version = "2.0.96", features = [ 'full' ] }
+quote = "1.0.38"
+proc-macro2 = "1.0.93"

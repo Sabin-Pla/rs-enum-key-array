@@ -9,17 +9,38 @@ mod eka;
 
 pub use idable::*;
 pub use eka::*;
-pub use eka_derive::Idable;
+pub use eka_derive::{Idable, generate_enum};
 
 pub use eka_derive::RangeEnum;
 
-#[derive(RangeEnum)]
-#[variant_range(1, 23)]
-enum TestRange {}
-
 #[test]
-fn main() {
-	//let t = TestRange::One;
-	println!("dddd");
-	assert!(false);
+fn run_tests() {
+	
+	// demo test case 1 
+	generate_enum!{ 
+		#[derive(Debug)]
+		enum FunctionKey {
+			F1: F _,
+			...
+			F24
+		}
+	}
+
+	let e = FunctionKey::F12;
+	println!("{:?}", e);
+
+	// test case 2 - suffix
+	generate_enum!{ 
+		#[derive(Debug)]
+		enum ExampleEnum {
+			Prefix1Suffix:  Prefix _ Suffix,
+			...
+			Prefix5Suffix
+		}
+	}
+
+
+	let e = ExampleEnum::Prefix3Suffix;
+	let e2 = ExampleEnum::Prefix4Suffix;	
+	assert!(e as u8 != e2 as u8);
 }

@@ -4,6 +4,8 @@ use crate::*;
 use syn::punctuated::Punctuated;
 use syn::punctuated::Pair;
 use syn::Token;
+pub use generator_func::use_generator;
+
 
 pub fn impl_range_enum(mut ast: syn::DeriveInput) -> TokenStream {
     let mut name = ast.ident.to_string();
@@ -12,6 +14,8 @@ pub fn impl_range_enum(mut ast: syn::DeriveInput) -> TokenStream {
     }
     let _ = name.split_off(name.len() - 5);
     let attrs = ast.attrs.clone();
+    let mut generator: Option<Box<dyn Fn(usize) -> String>> = None;
+    let mut range = (0, 0);
     for attribute in attrs {
         if let syn::Meta::List(syn::MetaList{ path, delimiter, tokens }) = attribute.meta {
             let path_segments = path.segments.iter()
@@ -33,9 +37,20 @@ pub fn impl_range_enum(mut ast: syn::DeriveInput) -> TokenStream {
                 let end = end.parse::<usize>().expect(
                     &format!("variant_range: {end} cannot be interpreted as usize").to_string());
                 println!("variant_range: {:?}", (start, end));
+                range = (start, end);
+            } else if p == "generator_func" {
+                use_generator!(tokens);
+                generator = Some(Box::new(generator_function));
             }
         }
     }
+
+    if let Some(generator) = generator {
+        for i in range.0..range.1 {
+            println!("GENERATOR: {i} {}", generator(i));
+        }
+    }
+
     let name = syn::Ident::new(&name, proc_macro2::Span::call_site());
     let mut variant_names: Vec::<syn::Ident>  = vec!();
     let mut p = syn::punctuated::Punctuated::<syn::Variant, Token![,]>::new();
